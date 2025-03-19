@@ -1,0 +1,31 @@
+apiVersion: apps/v1  # Specifies the API version for the Deployment resource
+kind: Deployment  # Defines the resource type as a Deployment
+metadata:
+  name: query-depl  # Name of the Deployment
+spec:
+  replicas: 1  # Number of pod replicas to maintain
+  selector:
+    matchLabels:
+      app: query 
+  template:
+    metadata:
+      labels:
+        app: query  # Labels applied to the pod, must match selector labels
+    spec:
+      containers:
+        - name: query  # Name of the container
+          image: akshayvishwakarma00008/query  # Docker image to be used for this container
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: query-srv
+spec:
+  selector:
+    app: query
+  ports:
+    - name: query
+      protocol: TCP
+      port: 4002
+      targetPort: 4002

@@ -1,0 +1,33 @@
+apiVersion: apps/v1  # Specifies the API version for the Deployment resource
+kind: Deployment  # Defines the resource type as a Deployment
+metadata:
+  name: client-deply  # Name of the Deployment
+spec:
+  replicas: 1  # Number of pod replicas to maintain
+  selector:
+    matchLabels:
+      app: client 
+  template:
+    metadata:
+      labels:
+        app: client  # Labels applied to the pod, must match selector labels
+    spec:
+      containers:
+        - name: client  # Name of the container
+          image: akshayvishwakarma00008/client  # Docker image to be used for this container
+          ports:
+            - containerPort: 3000
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-srv
+spec:
+  selector:
+    app: client
+  ports:
+    - name: client
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

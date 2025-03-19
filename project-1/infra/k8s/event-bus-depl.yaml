@@ -1,0 +1,31 @@
+apiVersion: apps/v1  # Specifies the API version for the Deployment resource
+kind: Deployment  # Defines the resource type as a Deployment
+metadata:
+  name: event-bus-depl  # Name of the Deployment
+spec:
+  replicas: 1  # Number of pod replicas to maintain
+  selector:
+    matchLabels:
+      app: event-bus  # Defines the label selector to match pods with label "app: event-bus"
+  template:
+    metadata:
+      labels:
+        app: event-bus  # Labels applied to the pod, must match selector labels
+    spec:
+      containers:
+        - name: event-bus  # Name of the container
+          image: akshayvishwakarma00008/event-bus  # Docker image to be used for this container
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: event-bus-srv
+spec:
+  selector:
+    app: event-bus
+  ports:
+    - name: event-bus
+      protocol: TCP
+      port: 4005
+      targetPort: 4005

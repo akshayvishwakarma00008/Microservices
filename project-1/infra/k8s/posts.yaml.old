@@ -1,0 +1,11 @@
+//this file is file is renamed to as old it was not needed 
+//the statement below are the steps to create a individual pods in kubernetes
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: posts
+spec:
+  containers:
+    - name: post
+      image: akshayvishwakarma00008/posts:0.0.1

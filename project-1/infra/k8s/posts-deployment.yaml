@@ -1,0 +1,32 @@
+apiVersion: apps/v1  # Specifies the API version for the Deployment resource
+kind: Deployment  # Defines the resource type as a Deployment
+metadata:
+  name: post-depl  # Name of the Deployment
+spec:
+  replicas: 1  # Number of pod replicas to maintain
+  selector:
+    matchLabels:
+      app: posts  # Defines the label selector to match pods with label "app: posts"
+  template:
+    metadata:
+      labels:
+        app: posts  # Labels applied to the pod, must match selector labels
+    spec:
+      containers:
+        - name: posts  # Name of the container
+          image: akshayvishwakarma00008/posts  # Docker image to be used for this container
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: post-clusterip-srv
+spec:
+  selector:
+    app: posts
+  ports:
+    - name: posts
+      protocol: TCP
+      port: 4000
+      targetPort: 4000

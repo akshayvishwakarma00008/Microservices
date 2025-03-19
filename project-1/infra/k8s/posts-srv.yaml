@@ -1,0 +1,14 @@
+apiVersion: v1  # Specifies the API version for the Service resource
+kind: Service  # Defines the resource type as a Service
+metadata:
+  name: posts-srv  # Name of the Service
+spec:
+  type: NodePort  # Exposes the service externally on a port assigned by Kubernetes
+  selector:
+    app: posts  # This should match the label in your deployment (fixed spacing issue)
+  ports:
+    - name: posts  # Name of the port mapping
+      protocol: TCP  # Protocol type
+      port: 4000  # Port on which the service is exposed inside the cluster
+      targetPort: 4000  # Port on which the container is listening
+
