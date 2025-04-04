@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { Password } from "../services/password";
 
 //an interface describe the properties required to create a new user
 interface UserAttrs {
@@ -29,6 +30,12 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+userSchema.pre('save', async function(done){
+  if (this.isModified('password')){
+    const hashed = await Password.toHash(this.get('password'));
+    this.set('password', hashed);
+  }
+})
 // we are not going to call the new User directly
 //rather we are going to use typescript and to make sure typescrpt is applied properly
 //we going to call the below function and there we are applying the UserAttrs so that TS can come into action
