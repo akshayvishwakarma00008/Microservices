@@ -3,10 +3,10 @@ import { app } from "./app";
 
 const start = async () => {
   if (!process.env.JWT_KEY){
-    throw new Error("JWT_KEY  must be defines")
+    throw new Error("MONGO_URI  must be defines")
   }
   if (!process.env.MONGO_URI){
-    throw new Error("MONGO_URI  must be defines")
+    throw new Error("JWT_KEY  must be defines")
   }
   try {
     await mongoose.connect(process.env.MONGO_URI);
